@@ -77,7 +77,7 @@ module rice_core_alu::<PKG: rice_core_proto_pkg> (
 
   function bit_reverse(value: input rice_core_value) -> rice_core_value {
     var result: rice_core_value;
-    for i: u32 in 0..XLEN {
+    for i in 0..XLEN {
       result[i] = value[XLEN-i-1];
     }
     return result;

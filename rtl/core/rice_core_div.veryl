@@ -22,7 +22,7 @@ module rice_core_div::<PKG: rice_core_proto_pkg> (
     result: logic<RESULT_WIDTH>,
   }
 
-  function is_signed(div_op: input rice_core_div_op) -> bool {
+  function is_signed(div_op: input rice_core_div_op) -> lbool {
     return div_op.div || div_op.rem;
   }
 
@@ -30,7 +30,7 @@ module rice_core_div::<PKG: rice_core_proto_pkg> (
     div_op : input rice_core_div_op,
     divided: input rice_core_value ,
     divisor: input rice_core_value ,
-  ) -> bool {
+  ) -> lbool {
     return is_signed(div_op) && (divided[msb] != divisor[msb]);
   }
 
@@ -54,7 +54,7 @@ module rice_core_div::<PKG: rice_core_proto_pkg> (
     var initial_values: rice_core_div_initial_value<XLEN>;
 
     sign_bit = if is_signed(div_op) ? rs1_value[msb] : 1'b0;
-    for i: u32 in 0..XLEN {
+    for i in 0..XLEN {
       if (i + 1) <: XLEN {
         match_sign[i] = rs1_value[i] == sign_bit;
       } else {
@@ -62,14 +62,14 @@ module rice_core_div::<PKG: rice_core_proto_pkg> (
       }
     }
 
-    for i: u32 in 0..XLEN {
+    for i in 0..XLEN {
       initial_values[XLEN-(i+1)].count               = (INITIAL_COUNT - i) as COUNT_WIDTH;
       initial_values[XLEN-(i+1)].result[0 step XLEN] = '0;
       initial_values[XLEN-(i+1)].result[1 step XLEN] = {sign_bit repeat XLEN};
       initial_values[XLEN-(i+1)].result[i+:XLEN]     = rs1_value;
     }
 
-    for i: i32 in rev 0..XLEN {
+    for i in rev 0..XLEN {
       if !match_sign[i] {
         return initial_values[i];
       }
@@ -107,7 +107,7 @@ module rice_core_div::<PKG: rice_core_proto_pkg> (
   function need_recovery(
     dividend: input logic<DIVIDEND_WIDTH>,
     result  : input logic<DIVIDEND_WIDTH>,
-  ) -> bool {
+  ) -> lbool {
     return result[msb] != dividend[msb] && result != 0 as DIVIDEND_WIDTH;
   }
 
@@ -117,13 +117,13 @@ module rice_core_div::<PKG: rice_core_proto_pkg> (
     rs2_value: input rice_core_value    ,
     result   : input logic<RESULT_WIDTH>,
   ) -> rice_core_value {
-    var div_zero: bool;
-    var overflow: bool;
-    var mod_sign: bool;
-    var div     : bool;
-    var divu    : bool;
-    var rem     : bool;
-    var remu    : bool;
+    var div_zero: lbool;
+    var overflow: lbool;
+    var mod_sign: lbool;
+    var div     : lbool;
+    var divu    : lbool;
+    var rem     : lbool;
+    var remu    : lbool;
 
     div_zero = rs2_value == 0 as XLEN;
     overflow = is_overflow(div_op, rs1_value, rs2_value);
@@ -153,7 +153,7 @@ module rice_core_div::<PKG: rice_core_proto_pkg> (
     div_op   : input rice_core_div_op,
     rs1_value: input rice_core_value ,
     rs2_value: input rice_core_value ,
-  ) -> bool {
+  ) -> lbool {
     return is_signed(div_op) && rs1_value == VALUE_MIN && rs2_value == VALUE_MINUS_1;
   }
 

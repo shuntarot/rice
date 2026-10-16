@@ -25,7 +25,7 @@ module rice_core_mem_lsu::<PKG: rice_core_proto_pkg> (
 
   var address        : logic<XLEN>        ;
   var offset         : logic<OFFSET_WIDTH>;
-  var single_access  : bool               ;
+  var single_access  : lbool              ;
   var request_state  : rice_core_state    ;
   var write_done     : logic              ;
   var response_state : rice_core_state    ;
@@ -55,7 +55,7 @@ module rice_core_mem_lsu::<PKG: rice_core_proto_pkg> (
   function is_single_access(
     offset    : input logic<OFFSET_WIDTH> ,
     mem_access: input rice_core_mem_access,
-  ) -> bool {
+  ) -> lbool {
     if XLEN == 32 {
       case mem_access.access_mode {
         rice_core_mem_access_mode::B ,

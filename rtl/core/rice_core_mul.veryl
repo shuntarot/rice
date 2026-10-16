@@ -19,15 +19,15 @@ module rice_core_mul::<PKG: rice_core_proto_pkg, PARALLELISM: u32 = 4> (
   const TOTAL_CYCLES : u32 = (MUL_WIDTH / 2) + 1;
   const COUNT_WIDTH  : u32 = $clog2(TOTAL_CYCLES + 1);
 
-  function is_rd_high(mul_op: input rice_core_mul_op) -> bool {
+  function is_rd_high(mul_op: input rice_core_mul_op) -> lbool {
     return !mul_op.mul;
   }
 
-  function is_rs1_signed(mul_op: input rice_core_mul_op) -> bool {
+  function is_rs1_signed(mul_op: input rice_core_mul_op) -> lbool {
     return mul_op.mulh || mul_op.mulhsu;
   }
 
-  function is_rs2_signed(mul_op: input rice_core_mul_op) -> bool {
+  function is_rs2_signed(mul_op: input rice_core_mul_op) -> lbool {
     return mul_op.mulh;
   }
 
@@ -37,7 +37,7 @@ module rice_core_mul::<PKG: rice_core_proto_pkg, PARALLELISM: u32 = 4> (
     multiplier: input logic<MUL_FF_WIDTH> ,
     product   : input logic<PRODUCT_WIDTH>,
   ) -> logic<PRODUCT_WIDTH> {
-    var rs1_signed  : bool                ;
+    var rs1_signed  : lbool               ;
     var a           : logic<SUM_WIDTH>    ;
     var b           : logic<SUM_WIDTH>    ;
     var c           : logic<SUM_WIDTH>    ;

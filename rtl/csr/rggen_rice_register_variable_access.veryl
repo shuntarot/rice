@@ -1,12 +1,12 @@
 import rggen::rggen_rtl_pkg::*;
 
 module rggen_rice_register_variable_access #(
-  param ADDRESS_WIDTH : u32                  = 8        ,
-  param OFFSET_ADDRESS: logic<ADDRESS_WIDTH> = 0        ,
-  param BUS_WIDTH     : u32                  = 32       ,
-  param DATA_WIDTH    : u32                  = BUS_WIDTH,
-  param VALUE_WIDTH   : u32                  = BUS_WIDTH,
-  param VALID_BITS    : bit<DATA_WIDTH>     = '1        ,
+  param ADDRESS_WIDTH : u32                = 8        ,
+  param OFFSET_ADDRESS: bit<ADDRESS_WIDTH> = 0        ,
+  param BUS_WIDTH     : u32                = 32       ,
+  param DATA_WIDTH    : u32                = BUS_WIDTH,
+  param VALUE_WIDTH   : u32                = BUS_WIDTH,
+  param VALID_BITS    : bit<DATA_WIDTH>    = '1       ,
 )(
   i_clk         : input   clock                              ,
   i_rst         : input   reset                              ,
@@ -40,6 +40,7 @@ module rggen_rice_register_variable_access #(
     i_rst             : i_rst       ,
     register_if       : register_if ,
     i_additional_match: access_match,
+    i_additional_mask : '1          ,
     bit_field_if      : bit_field_if,
   );
 }

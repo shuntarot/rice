@@ -29,7 +29,7 @@ module rice_core_bp::<
   const PHT_1: rice_core_pht_entry = 1;
   const PHT_0: rice_core_pht_entry = 0;
 
-  var enable   : bool                            ;
+  var enable   : lbool                           ;
   var pht      : rice_core_pht_entry<PHT_ENTRIES>;
   var pht_index: logic<2, PHT_INDEX_WIDTH>       ;
   var btb      : rice_core_btb_entry<BTB_ENTRIES>;
@@ -53,7 +53,7 @@ module rice_core_bp::<
     } else if !enable {
       pht = '{ default: 0 as rice_core_pht_entry };
     } else if i_branch_result.taken || i_branch_result.not_taken {
-      for i: u32 in 0..PHT_ENTRIES {
+      for i in 0..PHT_ENTRIES {
         if (i as PHT_INDEX_WIDTH) == pht_index[1] {
           pht[i] = update_pht(i_branch_result, pht[i]);
           break;
@@ -89,7 +89,7 @@ module rice_core_bp::<
     } else if !enable {
       btb = '{ default: 0 as rice_core_btb_entry };
     } else if i_branch_result.taken {
-      for i: u32 in 0..BTB_ENTRIES {
+      for i in 0..BTB_ENTRIES {
         if (i as BTB_INDEX_WIDTH) == btb_index[1] {
           btb[i].valid     = '1;
           btb[i].tag       = i_branch_result.pc[msb-:BTB_TAG_WIDTH];

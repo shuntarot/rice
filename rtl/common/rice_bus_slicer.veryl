@@ -1,11 +1,11 @@
 module rice_bus_slicer #(
-  param ADDRESS_WIDTH  : u32  = 32            ,
-  param DATA_WIDTH     : u32  = 32            ,
-  param STROBE_WIDTH   : u32  = DATA_WIDTH / 2,
-  param STAGES         : u32  = 1             ,
-  param REQUEST_STAGES : u32  = STAGES        ,
-  param RESPONSE_STAGES: u32  = STAGES        ,
-  param FULL_BANDWIDTH : bool = true          ,
+  param ADDRESS_WIDTH  : u32   = 32            ,
+  param DATA_WIDTH     : u32   = 32            ,
+  param STROBE_WIDTH   : u32   = DATA_WIDTH / 2,
+  param STAGES         : u32   = 1             ,
+  param REQUEST_STAGES : u32   = STAGES        ,
+  param RESPONSE_STAGES: u32   = STAGES        ,
+  param FULL_BANDWIDTH : bbool = true          ,
 ) (
   i_clk    : input   clock              ,
   i_rst    : input   reset              ,

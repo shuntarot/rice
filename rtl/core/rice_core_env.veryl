@@ -98,7 +98,7 @@ module rice_core_env::<PKG: rice_core_proto_pkg> (
     var code: logic<MCAUSE_CODE_WIDTH>;
 
     code = 0 as MCAUSE_CODE_WIDTH;
-    for i: u32 in 0..$bits(rice_core_exception) {
+    for i in 0..$bits(rice_core_exception) {
       if exception[i] {
         code = i as MCAUSE_CODE_WIDTH;
         break;

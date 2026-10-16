@@ -6,14 +6,14 @@ pub module tb_rice_core_env_inst_checker::<PKG: rice_core_proto_pkg> (
   import PKG::*;
 
   var id_result          : rice_core_id_result;
-  var is_valid_alu_op    : bool               ;
-  var is_valid_mul_op    : bool               ;
-  var is_valid_div_op    : bool               ;
-  var is_valid_branch_op : bool               ;
-  var is_valid_mem_access: bool               ;
-  var is_valid_csr_access: bool               ;
-  var is_valid_trap      : bool               ;
-  var is_valid_ordering  : bool               ;
+  var is_valid_alu_op    : lbool              ;
+  var is_valid_mul_op    : lbool              ;
+  var is_valid_div_op    : lbool              ;
+  var is_valid_branch_op : lbool              ;
+  var is_valid_mem_access: lbool              ;
+  var is_valid_csr_access: lbool              ;
+  var is_valid_trap      : lbool              ;
+  var is_valid_ordering  : lbool              ;
 
   always_comb {
     id_result           = pipeline_if.id_result;
@@ -27,6 +27,7 @@ pub module tb_rice_core_env_inst_checker::<PKG: rice_core_proto_pkg> (
     is_valid_ordering   = id_result.ordering.fence || id_result.ordering.fence_i;
   }
 
+  #[allow(unused_variable)]
   let rst_n: reset_async_low = i_rst as reset_async_low;
 
   embed(inline) sv{{{

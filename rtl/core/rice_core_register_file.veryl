@@ -9,7 +9,7 @@ module rice_core_register_file::<PKG: rice_core_proto_pkg> #(
   var write_enable: logic                        ;
 
   always_comb {
-    for i: u32 in 0..RF_SIZE {
+    for i in 0..RF_SIZE {
       if i == 0 {
         o_rf[i] = 0 as PKG::rice_core_value;
       } else {

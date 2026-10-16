@@ -21,7 +21,7 @@ module rggen_rice_bit_field_counter #(
     if_reset {
       count = INITIAL_VALUE;
     } else if bit_field_if.write_valid {
-      for i: u32 in 0..WIDTH {
+      for i in 0..WIDTH {
         if bit_field_if.mask[i] {
           count[i] = bit_field_if.write_data[i];
         }
