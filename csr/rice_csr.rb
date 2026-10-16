@@ -281,6 +281,7 @@ register_block {
   register {
     name 'mip'
     offset_address byte_address(0x344)
+    type :rw
     bit_field {
       name 'ssip'
       bit_assignment lsb: 1, width: 1; type :rof; initial_value 0

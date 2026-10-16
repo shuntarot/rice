@@ -1,4 +1,5 @@
 #[fmt(skip)]
+#[allow(unassign_variable)]
 pub module rice_csr_xlen32 #(
   param ADDRESS_WIDTH: u32 = 14,
   param PRE_DECODE: bbool = false,
@@ -1345,7 +1346,7 @@ pub module rice_csr_xlen32 #(
     inst bit_field_if: rggen::rggen_bit_field_if#(WIDTH: 32);
     inst u_register: rggen::rggen_default_register #(
       READABLE:       true,
-      WRITABLE:       false,
+      WRITABLE:       true,
       ADDRESS_WIDTH:  14,
       OFFSET_ADDRESS: 14'h0d10,
       BUS_WIDTH:      32,
